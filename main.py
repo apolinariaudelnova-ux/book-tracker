@@ -43,6 +43,29 @@ def add_book(books):
     save_books(books)
     print("Книга добавлена!")
 
+def list_books(books):
+    if not books:
+        print("Список книг пуст.")
+        return
+    for i, book in enumerate(books, 1):
+        print(f"{i}. {book['title']} — {book['author']} ({book['rating']}/5, {book['date']})")
+
+def show_average_rating(books):
+    if not books:
+        print("Нет книг для расчёта средней оценки.")
+        return
+    avg = sum(book['rating'] for book in books) / len(books)
+    print(f"Средняя оценка: {avg:.2f}")
+
+def show_author_stats(books):
+    from collections import defaultdict
+    stats = defaultdict(int)
+    for book in books:
+        stats[book['author']] += 1
+    print("Статистика по авторам:")
+    for author, count in stats.items():
+        print(f"{author}: {count} книг")
+
 def main():
     books = load_books()
     while True:
@@ -72,3 +95,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
